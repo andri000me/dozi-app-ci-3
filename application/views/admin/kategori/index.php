@@ -6,13 +6,13 @@
                     <h1 class="page-header">All Kategori</h1>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-primary tombolTambahKategori" data-toggle="modal" data-target="#formModal">Tambah Data Kategori</button>
+                                    <button type="button" style="margin-bottom: 10px;" class="btn btn-primary tombolTambahKategori" data-toggle="modal" data-target="#formModal">Tambah Data Kategori</button>
                                     <?= $this->session->flashdata('message') ?>
                                     <form action="<?= base_url('admin/kategori'); ?>" method="post">
-                                        <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="cari berita..." name="keyword">
+                                        <div class="input-group" style="margin-bottom: 10px;">
+                                          <input type="text" class="form-control" placeholder="cari berita..." name="keyword" autocomplete="off" autofocus="on">
                                           <span class="input-group-btn">
-                                            <input class="btn btn-default" name="submit" type="submit" value="Cari" autocomplete="off" autofocus="on">
+                                            <input class="btn btn-default" name="submit" type="submit" value="Cari">
                                           </span>
                                         </div><!-- /input-group -->
                                     </form>
@@ -83,7 +83,7 @@
       </div>
       <div class="modal-body">
         <form action="" method="post">
-            <input type="text" name="id_kategori" id="id_kategori">
+            <input type="hidden" name="id_kategori" id="id_kategori">
             <div class="form-group">
                 <label for="kategori">Kategori</label>
                 <input type="text" name="kategori" id="kategori" class="form-control">

@@ -6,13 +6,13 @@
                     <h1 class="page-header">All User</h1>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-primary tombolTambahUser" data-toggle="modal" data-target="#formModal">Tambah Data User</button>
+                                    <button type="button" style="margin-bottom: 10px;" class="btn btn-primary tombolTambahUser" data-toggle="modal" data-target="#formModal">Tambah Data User</button>
                                     <?= $this->session->flashdata('message') ?>
                                     <form action="<?= base_url('admin/user'); ?>" method="post">
-                                        <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="cari berita..." name="keyword">
+                                        <div class="input-group" style="margin-bottom: 10px;">
+                                          <input type="text" class="form-control" placeholder="cari berita..." name="keyword" autocomplete="off" autofocus="on">
                                           <span class="input-group-btn">
-                                            <input class="btn btn-default" name="submit" type="submit" value="Cari" autocomplete="off" autofocus="on">
+                                            <input class="btn btn-default" name="submit" type="submit" value="Cari">
                                           </span>
                                         </div><!-- /input-group -->
                                     </form>
@@ -118,8 +118,8 @@
             <div class="form-group">
                 <label for="foto">foto</label><br>
                 <img src="" id="tampilFoto" width="80">
-                <input type="file" name="foto" id="foto" class="form-control">
-                <input type="text" name="fotoLama" id="fotoLama">
+                <input type="file" name="foto" id="foto" class="form-control-file">
+                <input type="hidden" name="fotoLama" id="fotoLama">
             </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -22,49 +22,29 @@
     <ul class="nav navbar-right navbar-top-links">
         <li class="dropdown navbar-inverse">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell fa-fw"></i> <b class="caret"></b>
+                <i class="fa fa-bell fa-fw"></i><b data-toggle="tooltip" data-placement="bottom" title="<?= $statusartikel; ?> Artikel Menunggu Persetujuan." class="text-danger"><?= $statusartikel; ?></b> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu dropdown-alerts">
+                <?php if($this->session->userdata('role_id') == 1) : ?>
                 <li>
-                    <a href="#">
+                    <a href="<?= base_url('admin/artikel/persetujuan'); ?>">
                         <div>
-                            <i class="fa fa-comment fa-fw"></i> New Comment
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <i class="fa fa-list fa-fw"></i> Menunggu Persetujuan
+                            <span class="pull-right text-muted small"><?= $statusartikel; ?> Artikel</span>
                         </div>
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if($this->session->userdata('role_id') == 2) : ?>
                 <li>
-                    <a href="#">
+                    <a href="<?= base_url('user/artikel/persetujuan'); ?>">
                         <div>
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                            <span class="pull-right text-muted small">12 minutes ago</span>
+                            <i class="fa fa-list fa-fw"></i> Menunggu Persetujuan
+                            <span class="pull-right text-muted small"><?= $statusartikel; ?> Artikel</span>
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-tasks fa-fw"></i> New Task
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
+                <?php endif; ?>
                 <li class="divider"></li>
                 <li>
                     <a class="text-center" href="#">
@@ -79,9 +59,9 @@
                 <i class="fa fa-user fa-fw"></i> <?= $user['nama_user']; ?> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="<?= base_url(); ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                <li><a href="<?= base_url('auth/change'); ?>"><i class="fa fa-key fa-fw"></i> Change Password</a>
                 </li>
                 <li class="divider"></li>
                 <li><a href="<?= base_url('auth/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -105,18 +85,30 @@
                     </div>
                     <!-- /input-group -->
                 </li>
+                <!-- ADMINISTRATOR -->
+                <?php if($this->session->userdata('role_id') == 1) : ?>
                 <li>
                     <a href="<?= base_url('admin/dashboard'); ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="<?= base_url('admin/artikel'); ?>"><i class="fa fa-table fa-fw"></i> Artikel</a>
+                    <a href="<?= base_url('admin/artikel'); ?>"><i class="fa fa-list fa-fw"></i> Artikel</a>
                 </li>
                 <li>
-                    <a href="<?= base_url('admin/kategori'); ?>"><i class="fa fa-edit fa-fw"></i> Kategori</a>
+                    <a href="<?= base_url('admin/kategori'); ?>"><i class="fa fa-tag fa-fw"></i> Kategori</a>
                 </li>
                 <li>
-                    <a href="<?= base_url('admin/user'); ?>"><i class="fa fa-edit fa-fw"></i> User</a>
+                    <a href="<?= base_url('admin/user'); ?>"><i class="fa fa-users fa-fw"></i> User</a>
                 </li>
+            <?php endif; ?>
+
+            <!-- MEMBER -->
+            <?php if($this->session->userdata('role_id') == 2) : ?>
+                <li>
+                <a href="<?= base_url('user/artikel'); ?>"><i class="fa fa-list fa-fw"></i> Artikel</a>
+            </li>
+            <?php endif; ?>
+            <li>
+                <a href="<?= base_url('auth/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

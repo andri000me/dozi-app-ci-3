@@ -1,8 +1,16 @@
 $(function() {
+  $('[data-toggle="tooltip"]').tooltip();
 	// Halaman Artikel
 	$('.tombolTambahArtikel').click(function() {
 		$('#formModalLabel').html('Tambah Data Artikel');
 		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#judul').val('');
+		$('#id_artikel').val('');
+		$('#deskripsi').val('');
+		$('#kategori').val('');
+		$('#fotoLama').val('');
+		$('#tampilFoto').attr('src', '');
 	});
 
 
@@ -38,6 +46,9 @@ $(function() {
 	$('.tombolTambahKategori').click(function() {
 		$('#formModalLabel').html('Tambah Data Kategori');
 		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_kategori').val('');
+		$('#kategori').val('');
 	});
 
 
@@ -69,6 +80,14 @@ $(function() {
 	$('.tombolTambahUser').click(function() {
 		$('#formModalLabel').html('Tambah Data User');
 		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_user').val('');
+		$('#username').val('');
+		$('#password').val('');
+		$('#email').val('');
+		$('#nama').val('');
+		$('#fotoLama').val('');
+		$('#tampilFoto').attr('src', '');
 	});
 
 

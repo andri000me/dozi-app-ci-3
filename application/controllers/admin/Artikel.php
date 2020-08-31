@@ -6,6 +6,7 @@ class Artikel extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Artikel_model');
+        cekLogin();
 	}
 
     public function index()
@@ -68,6 +69,7 @@ class Artikel extends CI_Controller {
         $data['start'] = $this->uri->segment(4);
         $data['artikel'] = $this->Artikel_model->joinArtikelKategori($config['per_page'], $data['start'], $data['keyword']);
         $data['kategori'] = $this->db->get('kategori')->result_array();
+        $data['statusartikel'] = $this->Artikel_model->countStatusArtikel();
 
         $this->form_validation->set_rules('judul', 'Judul Berita', 'required|trim');
         $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim');
@@ -106,6 +108,40 @@ class Artikel extends CI_Controller {
         $this->db->delete('artikel', ['id_artikel' => $id]);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Artikel Berhasil <strong>Dihapus</strong>.</div>');
         redirect('admin/artikel');
+    }
+
+    public function review($id)
+    {
+        $data['title'] = 'Review Artikel';
+        $data['user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+        $data['kategori'] = $this->db->get('kategori')->result_array();
+        $data['artikel'] = $this->Artikel_model->reviewArtikelKategori($id);
+        $data['persetujuan'] = $this->Artikel_model->getAllArt();
+        $this->form_validation->set_rules('judul', 'Judul Artikel', 'required|trim');
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim');
+        $this->form_validation->set_rules('kategori', 'Deskripsi', 'required|trim');
+        $this->form_validation->set_rules('status', 'Status', 'required|trim');
+        if($this->form_validation->run() == FALSE) {
+            $this->load->view('themeplates_admin/header', $data);
+            $this->load->view('admin/article/review', $data);
+            $this->load->view('themeplates_admin/footer');
+        } else {
+            $this->Artikel_model->reviewUbah($id);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Artikel Berhasil <strong>Dipublikasikan</strong>.</div>');
+            redirect('admin/artikel');
+        }
+    }
+
+    public function persetujuan()
+    {
+        $data['title'] = 'Persetujuan Artikel';
+        $data['user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
+        $data['statusartikel'] = $this->Artikel_model->countStatusArtikel();
+        $data['persetujuan'] = $this->Artikel_model->getAllArt();
+        $this->load->view('themeplates_admin/header', $data);
+        $this->load->view('themeplates_admin/sidebar', $data);
+        $this->load->view('admin/article/persetujuan', $data);
+        $this->load->view('themeplates_admin/footer');
     }
 
 }

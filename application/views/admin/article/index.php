@@ -1,88 +1,91 @@
-    <!-- Page Content -->
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">All Article</h1>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <button type="button" class="btn btn-primary tombolTambahArtikel" data-toggle="modal" data-target="#formModal">Tambah Data Artikel</button>
-                                    <?= $this->session->flashdata('message') ?>
-                                    <form action="<?= base_url('admin/artikel'); ?>" method="post">
-                                        <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="cari berita..." name="keyword">
-                                          <span class="input-group-btn">
-                                            <input class="btn btn-default" name="submit" type="submit" value="Cari" autocomplete="off" autofocus="on">
-                                          </span>
-                                        </div><!-- /input-group -->
-                                    </form>
-                                </div>
-                            </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                All Article
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <h6>Total <?= $total_rows; ?> Artikel</h6>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Judul</th>
-                                                <th>Deskripsi</th>
-                                                <th>Kategori</th>
-                                                <th>Status</th>
-                                                <th>Di Post</th>
-                                                <th>Tanggal</th>
-                                                <th>Foto</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach($artikel as $a) : ?>
-                                                <tr>
-                                                    <td><?= ++$start; ?></td>
-                                                    <td><?= $a['judul_artikel']; ?></td>
-                                                    <td><?= $a['deskripsi_artikel']; ?></td>
-                                                    <td><?= $a['nama_kategori']; ?></td>
-                                                    <td>
-                                                        <?php if($a['status_artikel'] == '0') : ?>
-                                                            <span class="badge badge-warning">Menuggu Review</span>
-                                                            <?php else: ?>
-                                                                <a href="" class="btn btn-primary" target="_blank"><i class="fa fa-eye"></i></a>
-                                                        <?php endif; ?>
-                                                    </td>
-                                                    <td><?= $a['nama_user']; ?></td>
-                                                    <td><?= $a['tgl_post']; ?></td>
-                                                    <td>
-                                                        <img src="<?= base_url('assets/img/berita/') . $a['foto_artikel']; ?>" width="80">
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info tombolUbahArtikel" data-toggle="modal" data-target="#formModal" data-id="<?= $a['id_artikel']; ?>"><i class="fa fa-edit"></i></button>
-                                                        <a href="<?= base_url('admin/artikel/hapus/') . $a['id_artikel']; ?>" class="btn btn-danger" onclick="return confirm('Yakin ?')"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.table-responsive -->
-                                
-                            <?= $this->pagination->create_links(); ?>
-                            </div>
-                            <!-- /.panel-body -->
+<!-- Page Content -->
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">All Article</h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" style="margin-bottom: 10px;" class="btn btn-primary tombolTambahArtikel" data-toggle="modal" data-target="#formModal">Tambah Data Artikel</button>
+                            <?= $this->session->flashdata('message') ?>
+                            <form action="<?= base_url('admin/artikel'); ?>" method="post">
+                                <div class="input-group" style="margin-bottom: 10px;">
+                                  <input type="text" class="form-control" placeholder="cari berita..." name="keyword" autocomplete="off" autofocus>
+                                  <span class="input-group-btn">
+                                    <input class="btn btn-default" name="submit" type="submit" value="Cari">
+                                  </span>
+                                </div><!-- /input-group -->
+                            </form>
                         </div>
-                        <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            All Article
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <h6>Total <?= $total_rows; ?> Artikel</h6>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Judul</th>
+                                            <th>Deskripsi</th>
+                                            <th>Kategori</th>
+                                            <th>Status</th>
+                                            <th>Di Post</th>
+                                            <th>Tanggal</th>
+                                            <th>Foto</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($artikel as $a) : ?>
+                                        <tr>
+                                            <td><?= ++$start; ?></td>
+                                            <td><?= $a['judul_artikel']; ?></td>
+                                            <td><?= substr($a['deskripsi_artikel'], 0,100); ?> ...</td>
+                                            <td><?= $a['nama_kategori']; ?></td>
+                                            <td>
+                                                <?php if($a['status_artikel'] == '0') : ?>
+                                                    <a href="<?= base_url('admin/artikel/review/') . $a['id_artikel']; ?>" target="_blank" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Belum Dipiblikasikan"><i class="fa fa-eye fa-fw"></i></a>
+                                                    <?php else: ?>
+                                                        <span class="badge badge-warning" data-toggle="tooltip" data-placement="top" title="Sudah Dipost"><i class="fa fa-check-circle fa-fw"></i></span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><?= $a['nama_user']; ?></td>
+                                            <td><?= date('d-y-Y', strtotime($a['tgl_post'])); ?></td>
+                                            <td>
+                                                <img src="<?= base_url('assets/img/berita/') . $a['foto_artikel']; ?>" width="80">
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-info tombolUbahArtikel" data-toggle="modal" data-target="#formModal" data-id="<?= $a['id_artikel']; ?>"><i class="fa fa-edit"></i></button>
+                                                <a href="<?= base_url('admin/artikel/hapus/') . $a['id_artikel']; ?>" class="btn btn-danger" onclick="return confirm('Yakin ?')"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                    <?php if(empty($artikel)) : ?>
+                                        <div class="alert alert-danger" role="alert">Data tidak ditemukan.</div>
+                                    <?php endif; ?>
+                            </div>
+                            <!-- /.table-responsive -->
+                            
+                        <?= $this->pagination->create_links(); ?>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
             </div>
-            <!-- /.row -->
+            <!-- /.col-lg-12 -->
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.row -->
     </div>
-    <!-- /#page-wrapper -->
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
@@ -103,7 +106,7 @@
       </div>
       <div class="modal-body">
         <form action="" method="post" enctype="multipart/form-data">
-            <input type="text" name="id_artike" id="id_artikel">
+            <input type="hidden" name="id_artike" id="id_artikel">
             <div class="form-group">
                 <label for="judul">Judul Berita</label>
                 <input type="text" name="judul" id="judul" class="form-control">
@@ -127,7 +130,7 @@
             <div class="form-group">
                 <label for="foto">foto Berita</label><br>
                 <img src="" width="80" id="tampilFoto">
-                <input type="text" name="fotoLama" id="fotoLama">
+                <input type="hidden" name="fotoLama" id="fotoLama">
                 <input type="file" name="foto" id="foto" class="form-control-file">
             </div>
               <div class="modal-footer">

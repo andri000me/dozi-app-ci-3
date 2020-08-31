@@ -20,5 +20,6 @@
 
         <!-- Custom Fonts -->
         <link href="<?= base_url('assets/theme_admin'); ?>/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <script src="<?= base_url('assets/ckeditor'); ?>/ckeditor.js"></script>
 
     </head>

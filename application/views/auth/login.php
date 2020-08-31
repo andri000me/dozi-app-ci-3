@@ -20,6 +20,8 @@
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                            <a href="<?= base_url('auth/registration'); ?>">Register</a>
+                            <p>admin: ridho123, pas 12345. member : rozi1234, pas : 1234</p>
                         </fieldset>
                     </form>
                 </div>

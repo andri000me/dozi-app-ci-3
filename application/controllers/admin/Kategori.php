@@ -6,6 +6,8 @@ class Kategori extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Kategori_model');
+        $this->load->model('Artikel_model');
+        cekLogin();
 	}
 
     public function index()
@@ -67,7 +69,7 @@ class Kategori extends CI_Controller {
 
         $data['start'] = $this->uri->segment(4);
         $data['kategori'] = $this->Kategori_model->getAllKategori($config['per_page'] ,$data['start'] ,$data['keyword']);
-
+        $data['statusartikel'] = $this->Artikel_model->countStatusArtikel();
         $this->form_validation->set_rules('kategori', 'Kategori', 'required|trim');
         if($this->form_validation->run() == FALSE) {
 	        $this->load->view('themeplates_admin/header', $data);

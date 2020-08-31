@@ -6,10 +6,15 @@ class User extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('User_model');
+        $this->load->model('Artikel_model');
+        cekLogin();
 	}
 
     public function index()
     {
+        if($this->session->userdata('role_id') == 2) {
+            redirect('user/dashboard');
+        }
         $data['title'] = 'Page User';
         $data['user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
 
@@ -69,7 +74,7 @@ class User extends CI_Controller {
 
         $data['start'] = $this->uri->segment(4);
         $data['users'] = $this->User_model->getAllUser($config['per_page'] ,$data['start'] ,$data['keyword']);
-
+        $data['statusartikel'] = $this->Artikel_model->countStatusArtikel();
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]');
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
