@@ -120,6 +120,23 @@ $(function() {
 	});
 
 
+// ---------- HALAMAN ADMIN COMMENTS
+$('.tombolSetujuiKomentar').click(function() {
+	const id = $(this).data('id');
+	// console.log(id);
+
+	$.ajax({
+		url: 'http://localhost/dozi-app-ci-3/admin/komentar/getsetuju',
+		method: 'post',
+		dataType: 'json',
+		data: {id: id},
+		success: function(data) {
+			// console.log(data);
+			$('#id_komentar').val(data.id_komentar);
+			$('#status').val(data.status_komen);
+		}
+	});
+});
 
 
 });

@@ -15,6 +15,7 @@ class Artikel extends CI_Controller {
         $data['kategori'] = $this->db->get('kategori')->result_array();
         $data['artikel'] = $this->Home_model->readKategoriArtikelById($id);
         $data['judulkategori'] = $this->Home_model->titleKategoriArtikelById($id);
+        $data['komentar'] = $this->db->get_where('komentar', ['id_artikel' => $id, 'status_komen' => '1'])->result_array();
         $this->load->view('themeplate/header', $data);
         $this->load->view('themeplate/sidebar', $data);
         $this->load->view('home/read', $data);

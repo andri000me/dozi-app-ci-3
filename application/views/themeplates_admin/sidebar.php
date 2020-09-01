@@ -94,6 +94,9 @@
                     <a href="<?= base_url('admin/artikel'); ?>"><i class="fa fa-list fa-fw"></i> Artikel</a>
                 </li>
                 <li>
+                    <a href="<?= base_url('admin/komentar'); ?>"><i class="fa fa-comment fa-fw"></i> Komentar</a>
+                </li>
+                <li>
                     <a href="<?= base_url('admin/kategori'); ?>"><i class="fa fa-tag fa-fw"></i> Kategori</a>
                 </li>
                 <li>

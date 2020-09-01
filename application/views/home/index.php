@@ -3,16 +3,17 @@
 
   <!-- Corosel -->
     <div class="col-md-10">
+      <?php if(!$this->input->post('submit')) : ?>
       <div id="carouselExampleControls" class="carousel slide mt-3" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="<?= base_url('assets/themeplate/img/1.jpg'); ?>" class="d-block w-100" alt="...">
+            <img src="<?= base_url('assets/themeplate/img/arti-thumb-2.jpg'); ?>" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="<?= base_url('assets/themeplate/img/2.jpg'); ?>" class="d-block w-100" alt="...">
+            <img src="<?= base_url('assets/themeplate/img/arti-thumb-3.jpg'); ?>" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="<?= base_url('assets/themeplate/img/3.jpg'); ?>" class="d-block w-100" alt="...">
+            <img src="<?= base_url('assets/themeplate/img/arti-thumb-1.jpg'); ?>" class="d-block w-100" alt="...">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -24,11 +25,18 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+    <?php endif; ?>
     <!-- /Corosel -->  
 
        <!-- POST -->
-
+       <?php if($this->input->post('submit')) : ?>
+         <h4 class="mt-4 font-weight-bold text-center text-black-50">Search <?= set_value('keyword'); ?></h4>
+        <?php else : ?>
       <h4 class="mt-4 font-weight-bold text-center text-black-50">All Game Mod</h4>
+       <?php endif; ?>
+        <?php if(empty($artikel)) : ?>
+          <div class="alert alert-danger text-center" role="alert">Search not found.</div>
+        <?php endif; ?>
       <div class="row">
         <?php foreach($artikel as $a) : ?>
         <div class="col-md-4">

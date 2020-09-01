@@ -14,23 +14,47 @@
         <li class="nav-item">
           <a class="nav-link" href="#"><i class="fas fa-star-half-alt text-warning"></i> Ratting</a>
         </li>
+
+        <?php if(!$this->session->userdata('role_id')) : ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('auth'); ?>"><i class="fa fa-sign-in-alt"></i> Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('auth'); ?>"><i class="fa fa-registered"></i> Register</a>
+          </li>
+        <?php endif; ?>
+
+        <!-- Administrator -->
+        <?php if($this->session->userdata('role_id') == 1) : ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Admin
+          Hi, <?= $user['nama_user']; ?>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#"><i class="fab fa-facebook text-primary"></i> Facebook</a>
-            <a class="dropdown-item" href="#"><i class="fab fa-instagram text-dark"></i> Instagram</a>
-            <a class="dropdown-item" href="#"><i class="fab fa-whatsapp text-success"></i> Whatsapp</a>
+            <a class="dropdown-item" href="<?= base_url('admin/dashboard'); ?>"><i class="fa fa-tachometer-alt"></i> Dashboard</a>
+            <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>"><i class="fa fa-sign-out-alt"></i> Logout</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fab fa-youtube text-danger"></i> Youtube</a>
+        <?php endif; ?>
+        <!-- /Administrator -->
+
+        <!-- Member -->
+        <?php if($this->session->userdata('role_id') == 2) : ?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hi, <?= $user['nama_user']; ?>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?= base_url('user/dashboard'); ?>"><i class="fa fa-tachometer-alt"></i> Dashboard</a>
+            <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>"><i class="fa fa-sign-out-alt"></i> Logout</a>
+          </div>
         </li>
+        <?php endif; ?>
+        <!-- /Member -->
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search Game..." aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <form class="form-inline my-2 my-lg-0" action="<?= base_url('home'); ?>" method="post">
+        <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Search Game..." autocomplete="off" autofocus="on">
+        <input class="btn btn-outline-success my-2 my-sm-0" name="submit" type="submit" value="Search">
       </form>
     </div>
   </div>
@@ -48,7 +72,7 @@
           Categories
         </h5>
         <?php foreach($kategori as $k) : ?>
-        <a href="<?= base_url('home/categori/') . $k['id_kategori']; ?>" class="list-group-item list-group-item-action"><?= $k['nama_kategori']; ?></a>
+        <a href="<?= base_url('home/categori/') . $k['id_kategori']; ?>" class="list-group-item list-group-item-action"><i class="fa fa-tag"></i> <?= $k['nama_kategori']; ?></a>
         <?php endforeach; ?>
       </div>    
     </div>

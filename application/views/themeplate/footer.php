@@ -15,5 +15,6 @@
     <script src="<?= base_url('assets/themeplate/'); ?>js/jquery-3.4.1.min.js"></script>
     <script src="<?= base_url('assets/themeplate/'); ?>js/popper.min.js"></script>
     <script src="<?= base_url('assets/themeplate/'); ?>js/bootstrap.min.js"></script>
+    <script src="<?= base_url('assets/theme_admin'); ?>/js/myscript.js"></script>
   </body>
 </html>

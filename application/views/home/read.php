@@ -1,6 +1,7 @@
     <div class="col-md-10">
       <div class="row">
         <div class="col-md mt-3">
+        	<?= $this->session->flashdata('message'); ?>
         	<div class="card">
 			  <div class="card-header bg-success text-light">
 			    <h3><?= $artikel['judul_artikel']; ?></h3>
@@ -45,6 +46,65 @@
         </div>
       </div> <!-- row -->
 
+      <!-- Komentar -->
+      <div class="card mt-4">
+      	<div class="card-header">
+      		<h5>Komentar</h5>
+      	</div>
+      	<div class="card-body">
+      		<form action="<?= base_url('admin/komentar/send'); ?>" method="post">
+      			<input type="text" name="id_artikel" value="<?= $artikel['id_artikel']; ?>">
+	      		<div class="row">
+	      			<div class="col-md-6">
+	      				<div class="form-group">
+	      					<label for="nama">Name</label>
+	      					<input type="text" name="nama" id="nama" placeholder="full name" class="form-control">
+	      				</div>
+	      			</div>
+	      			<div class="col-md-6">
+	      				<div class="form-group">
+	      					<label for="email">Email</label>
+	      					<input type="text" name="email" id="email" class="form-control" placeholder="email address">
+	      				</div>
+	      			</div>
+	      		</div>
+	      		<div class="row">
+	      			<div class="col-md">
+	      				<div class="form-group">
+	      					<label for="komentar">Comment</label>
+	      					<textarea name="komentar" id="komentar" class="form-control"></textarea>
+	      				</div>
+	      				<div class="form-group">
+	      					<button type="submit" class="btn btn-success">Send</button>
+	      				</div>
+	      			</div>
+	      		</div>
+	      	</form>
+
+	      	<!-- Menampilkan Pesan -->
+	      	<hr>
+	      	<div class="row">
+	      		<div class="col-md">
+	      		<?php foreach($komentar as $k) : ?>
+	      			<div class="media">
+	      				<div class="card w-100 mb-2">
+	      					<div class="card-body">
+							  	<div class="media-body">
+							    <h5 class="mt-0 mb-1"><?= $k['nama_komen']; ?></h5>
+							    <?= $k['isi_komen']; ?>
+							  	</div>
+	      						<button type="button" class="btn btn-success tombolReply" data-toggle="modal" data-target="#replyModal">Reply</button>
+	      					</div>
+	      				</div>
+					</div>
+				<?php endforeach; ?>
+	      		</div>
+	      	</div>
+	      	<!-- /Menampilkan Pesan -->
+      	</div>
+      </div>
+      <!-- Komentar -->
+
     </div> <!-- col-md-10 -->
   </div> <!-- row -->
 </div> <!-- container -->
@@ -53,4 +113,37 @@
 
 
 
-
+<!-- Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reply Comment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url('admin/komentar/reply') ?>" method="post">
+        	<input type="text" name="id_artikel" value="<?= $artikel['id_artikel']; ?>">
+        	<div class="form-group">
+        		<label for="nama">Name</label>
+        		<input type="text" name="nama" id="nama" placeholder="full name" class="form-control">
+        	</div>
+        	<div class="form-group">
+        		<label for="email">Email</label>
+        		<input type="email" name="email" id="email" placeholder="email address" class="form-control">
+        	</div>
+        	<div class="form-group">
+        		<label for="komentar">Comment</label>
+        		<textarea name="komentar" id="komentar" class="form-control"></textarea>
+        	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary">Save changes</button>
+	      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

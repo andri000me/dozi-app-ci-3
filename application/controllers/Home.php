@@ -14,9 +14,24 @@ class Home extends CI_Controller {
         $data['user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
         $data['kategori'] = $this->db->get('kategori')->result_array();
 
+        // Search
+        if($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword');
+        } else if(!$this->input->post('submit')) {
+            $data['keyword'] = $this->session->unset_userdata('keyword');
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+
+        $this->db->like('judul_artikel', $data['keyword']);
+        $this->db->from('artikel');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+
         // Pagination
         $config['base_url'] = 'http://localhost/dozi-app-ci-3/home/index';
-        $config['total_rows'] = $this->Home_model->countAllArtikel();
+        // $config['total_rows'] = $this->Home_model->countAllArtikel();
         // var_dump($config['total_rows']); die;
         $config['per_page'] = 6;
         $config['num_links'] = 2;
@@ -54,7 +69,7 @@ class Home extends CI_Controller {
         $this->pagination->initialize($config);
 
         $data['start'] = $this->uri->segment(3);
-        $data['artikel'] = $this->Home_model->getAllArtikelUserKategori($config['per_page'], $data['start']);
+        $data['artikel'] = $this->Home_model->getAllArtikelUserKategori($config['per_page'], $data['start'], $data['keyword']);
         $this->load->view('themeplate/header', $data);
         $this->load->view('themeplate/sidebar', $data);
         $this->load->view('home/index', $data);

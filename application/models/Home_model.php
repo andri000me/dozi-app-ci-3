@@ -2,8 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home_model extends CI_Model {
-	public function getAllArtikelUserKategori($limit, $start)
+	public function getAllArtikelUserKategori($limit, $start, $keyword = null)
 	{
+		if($keyword) {
+			$this->db->like('judul_artikel', $keyword);
+		}
 		$this->db->select('*');
 		$this->db->from('artikel');
 		$this->db->join('user', 'user.id_user = artikel.id_user');
