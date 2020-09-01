@@ -16,6 +16,10 @@ class Dashboard extends CI_Controller {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
         $data['statusartikel'] = $this->Artikel_model->countStatusArtikel();
+        $data['countartikel'] = $this->db->get('artikel')->num_rows();
+        $data['countkategori'] = $this->db->get('kategori')->num_rows();
+        $data['countuser'] = $this->db->get('user')->num_rows();
+        $data['countkomentar'] = $this->db->get('komentar')->num_rows();
         $this->load->view('themeplates_admin/header', $data);
         $this->load->view('themeplates_admin/sidebar', $data);
         $this->load->view('admin/dashboard', $data);

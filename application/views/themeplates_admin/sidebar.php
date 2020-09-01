@@ -5,7 +5,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" href="index.html">Dozi APK</a>
+        <a class="navbar-brand" href="<?= base_url(); ?>">Dozi APK</a>
     </div>
 
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,7 +16,7 @@
     </button>
 
     <ul class="nav navbar-nav navbar-left navbar-top-links">
-        <li><a href="#"><i class="fa fa-home fa-fw"></i> Website</a></li>
+        <li><a href="<?= base_url(); ?>"><i class="fa fa-home fa-fw"></i> Website</a></li>
     </ul>
 
     <ul class="nav navbar-right navbar-top-links">
@@ -59,7 +59,6 @@
                 <i class="fa fa-user fa-fw"></i> <?= $user['nama_user']; ?> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="<?= base_url(); ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li><a href="<?= base_url('auth/change'); ?>"><i class="fa fa-key fa-fw"></i> Change Password</a>
                 </li>
@@ -74,7 +73,7 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li class="sidebar-search">
+                <!-- <li class="sidebar-search">
                     <div class="input-group custom-search-form">
                         <input type="text" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
@@ -83,8 +82,7 @@
                             </button>
                         </span>
                     </div>
-                    <!-- /input-group -->
-                </li>
+                </li> -->
                 <!-- ADMINISTRATOR -->
                 <?php if($this->session->userdata('role_id') == 1) : ?>
                 <li>
