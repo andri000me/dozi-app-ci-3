@@ -53,7 +53,7 @@
       	</div>
       	<div class="card-body">
       		<form action="<?= base_url('admin/komentar/send'); ?>" method="post">
-      			<input type="text" name="id_artikel" value="<?= $artikel['id_artikel']; ?>">
+      			<input type="hidden" name="id_artikel" value="<?= $artikel['id_artikel']; ?>">
 	      		<div class="row">
 	      			<div class="col-md-6">
 	      				<div class="form-group">
@@ -125,7 +125,7 @@
       </div>
       <div class="modal-body">
         <form action="<?= base_url('admin/komentar/reply') ?>" method="post">
-        	<input type="text" name="id_artikel" value="<?= $artikel['id_artikel']; ?>">
+        	<input type="hidden" name="id_artikel" value="<?= $artikel['id_artikel']; ?>">
         	<div class="form-group">
         		<label for="nama">Name</label>
         		<input type="text" name="nama" id="nama" placeholder="full name" class="form-control">

@@ -2,12 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Komentar_model extends CI_Model {
-	public function joinKomentarArtikel()
+	public function joinKomentarArtikel($limit, $start, $keyword = null)
 	{
+		if($keyword) {
+			$this->db->like('nama_komen', $keyword);
+			$this->db->like('email_komen', $keyword);
+		}
 		$this->db->select('*');
 		$this->db->from('komentar');
 		$this->db->join('artikel', 'artikel.id_artikel = komentar.id_artikel');
-		return $this->db->get()->result_array();
+		return $this->db->get('', $limit, $start)->result_array();
 	}
 
 	public function sendMail($id_artikel)

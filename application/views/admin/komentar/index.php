@@ -7,7 +7,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <?= $this->session->flashdata('message') ?>
-                                    <form action="<?= base_url('admin/kategori'); ?>" method="post">
+                                    <form action="<?= base_url('admin/komentar'); ?>" method="post">
                                         <div class="input-group" style="margin-bottom: 10px;">
                                           <input type="text" class="form-control" placeholder="cari berita..." name="keyword" autocomplete="off" autofocus="on">
                                           <span class="input-group-btn">
@@ -33,6 +33,7 @@
                                                 <th>Isi</th>
                                                 <th>Status</th>
                                                 <th>Judul Artikel</th>
+                                                <th><i class="fa fa-cog" aria-hidden="true"></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -44,12 +45,15 @@
                                                     <td><?= $k['isi_komen']; ?></td>
                                                     <td>
                                                         <?php if($k['status_komen'] == '0') : ?>
-                                                            <button data-toggle="modal" data-target="#komentarModal" class="btn btn-warning tombolSetujuiKomentar btn-sm" data-placement="top" title="Menuggu Persetujuan Komentar" data-id="<?= $k['id_komentar']; ?>"><i class="fa fa-spinner"></i></button>
+                                                            <button data-toggle="modal" data-target="#komentarModal" class="btn btn-warning tombolSetujuiKomentar btn-sm" data-id="<?= $k['id_komentar']; ?>"><i class="fa fa-spinner"></i></button>
                                                             <?php else : ?>
                                                                 <span class="badge badge-success" data-toggle="tooltip" data-placement="top" title="Komentar Sudah Ditampilkan"><i class="fa fa-check-circle"></i></span>
                                                         <?php endif; ?>
                                                     </td>
                                                     <td><?= $k['judul_artikel']; ?></td>
+                                                    <td>
+                                                        <a href="<?= base_url('admin/komentar/hapus/') . $k['id_komentar']; ?>" data-toggle="tooltip" data-placement="top" title="Hapus Komentar" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ?')"><i class="fa fa-trash"></i></a>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -90,7 +94,7 @@
       </div>
       <div class="modal-body">
         <form action="<?= base_url('admin/komentar/status'); ?>" method="post">
-            <input type="text" name="id_komentar" id="id_komentar">
+            <input type="hidden" name="id_komentar" id="id_komentar">
             <div class="form-group">
                 <label for="status">Setujui ?</label>
                 <div class="alert alert-warning" role="alert">Apakah anda ingin menampilkan komentar ini di dalam artikel ?</div>
